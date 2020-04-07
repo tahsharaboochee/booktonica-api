@@ -13,7 +13,10 @@ class BooktonicaDatabase {
    * @param {String} name - name of database to connect to
    */
   constructor(name) {
-    const connectionString = `postgres://localhost:5432/${name}`;
+    const connectionString = process.env.DATABASE_URL ?
+                             process.env.DATABASE_URL : 
+                             `postgres://localhost:5432/${name}`;
+
     console.log('Postgres DB => ', connectionString);
     this.db = pgp(connectionString);
   }
