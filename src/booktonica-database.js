@@ -14,9 +14,7 @@ class BooktonicaDatabase {
    */
   constructor(name) {
     //process.env.DATABASE_URL is a postgres instance in amazon cloud this 
-    const connectionString = process.env.DATABASE_URL ?
-                             process.env.DATABASE_URL : 
-                             `postgres://localhost:5432/${name}`;
+    const connectionString = process.env.DATABASE_URL || `postgres://localhost:5432/${name}`;
 
     console.log('Postgres DB => ', connectionString);
     this.db = pgp(connectionString);
