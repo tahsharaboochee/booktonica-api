@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const BooktonicaDatabase = require('./src/booktonica-database');
 
 /**
@@ -16,6 +17,8 @@ const dbName = process.env.DB_NAME || DEFAULT_DB_NAME;
 const db = new BooktonicaDatabase(dbName);
 
 const api = express();
+
+api.use(cors())
 
 // Middlewares
 api.use(morgan('tiny'));
