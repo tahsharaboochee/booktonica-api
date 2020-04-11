@@ -126,9 +126,13 @@ class BooktonicaDatabase {
 
   
   addBookToList(book){
-    console.log('booktonica-database: book input', book)
     return this.db.none(
-      `INSERT INTO booklist_books (book_id, booklist_id) VALUES $1, $2`, [book.book_id, book.list_id]   
+      //query only inserts if the row does not exist
+      `INSERT INTO booklist_books (book_id, booklist_id) 
+       SELECT $1, $2 
+        WHERE NOT EXISTS (
+          SELECT $1, $2 FROM  booklist_books WHERE book_id = $1 AND booklist_id = $2
+        )`, [book.book_id, book.list_id]
     )
   }
 
